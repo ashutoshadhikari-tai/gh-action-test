@@ -1,0 +1,35 @@
+name: QA
+
+on:
+  pull_request:
+  workflow_dispatch:        # lets you trigger it by hand from the Actions tab
+
+concurrency:
+  group: qcentriq-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  qcentriq:
+    name: QCentriQ tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      pull-requests: write          # required for the result comment
+
+    steps:
+      - uses: qcentriq/run-tests@v1
+        id: qa
+        with:
+          api-url: https://qcaq-dev.tai.com.np
+          api-token: qc_90e2d555dd598535c8bcb98433d18c0f05394193
+          project-id: 019fc62f-cefb-74e4-b98f-22c8a9682a87
+          test-group-id: 019fc633-d110-738f-a64c-05fac1f2a77a
+
+      - name: Show outputs
+        if: always()
+        run: |
+          echo "run-id : ${{ steps.qa.outputs.run-id }}"
+          echo "status : ${{ steps.qa.outputs.status }}"
+          echo "total  : ${{ steps.qa.outputs.total }}"
+          echo "passed : ${{ steps.qa.outputs.passed }}"
+          echo "failed : ${{ steps.qa.outputs.failed }}"
