@@ -20,7 +20,7 @@ jobs:
       - uses: qcentriq/run-tests@v1
         id: qa
         with:
-          api-url: https://qcaq-dev.tai.com.np
+          api-url: https://qcaq.dev.tai.com.np
           api-token: qc_90e2d555dd598535c8bcb98433d18c0f05394193
           project-id: 019fc62f-cefb-74e4-b98f-22c8a9682a87
           test-group-id: 019fc633-d110-738f-a64c-05fac1f2a77a
